@@ -1,0 +1,19 @@
+# https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml #
+argo-cd:
+  server:
+    extraArgs:
+      - --insecure
+    image:
+      repository: quay.io/argoproj/argocd
+      tag: v.3.2.6
+    nameOverride: argocd
+  redis-ha:
+    enabled: true
+    replicaCount: 2
+  dex:
+    enabled: true
+  notifications:
+    enabled: true
+  applicationSet:
+    enabled: true
+
