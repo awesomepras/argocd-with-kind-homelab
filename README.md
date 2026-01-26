@@ -378,3 +378,14 @@ Planned work:
 
 Tested on Ubuntu 24.04.
 [↑ Back to top](#top)
+
+
+**References:**  
+https://kubernetes-tutorial.schoolofdevops.com/kind_create_cluster/
+https://www.arthurkoziel.com/setting-up-argocd-with-helm/
+https://piotrminkowski.com/2022/06/28/manage-kubernetes-cluster-with-terraform-and-argo-cd/
+https://github.com/argoproj/argoproj-deployments/tree/master/argocd
+https://argo-cd.readthedocs.io/en/stable/operator-manual/installation/
+https://github.com/GoogleCloudPlatform/gke-poc-toolkit/tree/main/demos/fleets
+https://github.com/GoogleCloudPlatform/gke-poc-toolkit-demos/tree/main/gke-fleets-with-argocd
+
