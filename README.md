@@ -17,6 +17,7 @@ This repository documents a local multi-node Kubernetes cluster using KinD (Kube
 - [MetalLB Configuration](#metallb-configuration)
 - [kube-proxy Configuration (strictARP)](#kube-proxy-configuration-strictarp)
 - [Install ArgoCD](#install-argocd)
+- [Configure ArgoCD](#configure-argocd)
 - [Expose ArgoCD via LoadBalancer](#expose-argocd-via-loadbalancer)
 - [Ubuntu Firewall Configuration](#ubuntu-firewall-configuration)
 - [Verification](#verification)
@@ -228,6 +229,35 @@ Upgrade release:
 helm upgrade argocd argo/argo-cd -n argocd -f values.yaml
 ```
 
+---
+## Configure ArgoCD
+
+After reaching the UI the first time you can login with username: admin and the random password generated during the installation. You can find the password by running:
+
+```bash
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+(You should delete the initial secret afterwards as suggested by the [Getting Started Guide:](https://argo-cd.readthedocs.io/en/stable/getting_started/#4-login-using-the-cli)  
+
+```bash
+kubectl get secret argocd-initial-admin-secret -n argocd
+kubectl delete secret argocd-initial-admin-secret -n argocd
+```
+
+If you’ve forgotten the password: Reset it by deleting the admin.password and admin.passwordMtime entries from the argocd-secret secret:
+
+```bash
+kubectl patch secret argocd-secret -n argocd -p '{"data": {"admin.password": null, "admin.passwordMtime": null}}'
+```
+
+Then restart the ArgoCD server:
+
+```bash
+kubectl rollout restart deployment.apps/argocd-server -n argocd
+```
+
+[↑ Back to top](#top)
 ---
 
 ## Expose ArgoCD via LoadBalancer
