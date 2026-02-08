@@ -24,3 +24,5 @@ dependencies:
   - name: argo-cd
     version: 9.3.5
     repository: https://argoproj.github.io/argo-helm
+
+# for latest chart version:    helm search repo argo/argo-cd --versions   |head -3 ## 

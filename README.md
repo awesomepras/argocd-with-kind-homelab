@@ -19,7 +19,6 @@ This repository documents a local multi-node Kubernetes cluster using KinD (Kube
 - [Install ArgoCD](#install-argocd)
 - [Configure ArgoCD](#configure-argocd)
 - [Expose ArgoCD via LoadBalancer](#expose-argocd-via-loadbalancer)
-- [Ubuntu Firewall Configuration](#ubuntu-firewall-configuration)
 - [Verification](#verification)
 - [Observability (Optional)](#observability-optional)
 - [Podman Troubleshooting (Deprecated)](#podman-troubleshooting-deprecated)
@@ -157,7 +156,7 @@ Create or update layer2-config.yaml:
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: static-pool
+  name: static-pool # make sure this matches aht name in bgpadvertisement
   namespace: metallb-system
 spec:
   addresses:
@@ -212,6 +211,8 @@ helm install argocd argo/argo-cd -n argocd
 ```
 
 ### Optional: Pin ArgoCD Version
+Find the latest version of argoCD Chart
+``` helm search repo argo/argo-cd --versions   |head -3```
 
 values.yaml:
 
@@ -276,17 +277,6 @@ kubectl get svc argocd-server -n argocd -w
 ```
 [↑ Back to top](#top)
 
----
-
-## Ubuntu Firewall Configuration
-
-### Identify NodePort and Node IP
-
-```bash
-kubectl get svc argocd-server -n argocd
-kubectl get pods -n argocd -l app.kubernetes.io/component=server -o wide
-kubectl describe node NODE_NAME | grep InternalIP
-```
 
 ---
 
